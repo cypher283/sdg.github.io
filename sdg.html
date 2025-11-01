@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>THE 17 GOALS | Sustainable Development</title>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div style="font-size: 2.5rem; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.2);">
+                🌍 Sustainable Development Goals
+            </div>
+            <div class="accessibility-controls">
+                <button class="control-btn" id="darkModeBtn" onclick="toggleDarkMode()">🌙 Dark Mode</button>
+                <button class="control-btn" onclick="toggleDyslexiaFont()">👁️ Dyslexia Font</button>
+                <button class="control-btn" onclick="increaseFontSize()">A+</button>
+                <button class="control-btn" onclick="decreaseFontSize()">A-</button>
+                <select class="control-btn" onchange="changeTheme(this.value)" style="cursor: pointer;">
+                    <option value="default">🎨 Default</option>
+                    <option value="nature">🌱 Nature</option>
+                    <option value="ocean">🌊 Ocean</option>
+                    <option value="sky">☁️ Sky</option>
+                </select>
+            </div>
+        </div>
+    </header>
+
+    <nav>
+        <div class="nav-container">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search goals, stories..." onkeyup="searchContent()">
+            </div>
+            <a href="#tracker" class="nav-link">📊 My Progress</a>
+            <a href="#challenge" class="nav-link">🌱 Daily Challenge</a>
+            <a href="#goals" class="nav-link">Goals</a>
+            <a href="#faq" class="nav-link">❓ FAQ</a>
+        </div>
+    </nav>
+
+    <div class="live-ticker">
+        <div class="ticker-content">
+            <span class="ticker-item">🌾 Every minute, 5,000 people receive food aid globally</span>
+            <span class="ticker-item">💧 2.2 billion people lack access to safe drinking water</span>
+            <span class="ticker-item">🌍 193 countries committed to the SDGs</span>
+            <span class="ticker-item">📚 264 million children are out of school</span>
+            <span class="ticker-item">🌳 13 million hectares of forest are lost each year</span>
+            <span class="ticker-item">🌾 Every minute, 5,000 people receive food aid globally</span>
+            <span class="ticker-item">💧 2.2 billion people lack access to safe drinking water</span>
+            <span class="ticker-item">🌍 193 countries committed to the SDGs</span>
+        </div>
+    </div>
+
+    <div class="stats-bar">
+        <div class="stats-container">
+            <div class="stat-item">
+                <div class="stat-number" data-target="169">0</div>
+                <div class="stat-label">Targets</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" data-target="4063">0</div>
+                <div class="stat-label">Events</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" data-target="1364">0</div>
+                <div class="stat-label">Publications</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" data-target="8518">0</div>
+                <div class="stat-label">Actions</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="tracker" class="tracker-section">
+        <div class="tracker-container">
+            <div class="tracker-header">
+                <h2>🎯 Your SDG Learning Journey</h2>
+                <p>Track your progress and earn badges!</p>
+            </div>
+            <div class="progress-ring">
+                <svg width="150" height="150">
+                    <circle cx="75" cy="75" r="60" stroke="#e0e0e0" stroke-width="15" fill="none"/>
+                    <circle id="progressCircle" cx="75" cy="75" r="60" stroke="#009edb" stroke-width="15" fill="none"
+                            stroke-dasharray="377" stroke-dashoffset="377" class="progress-ring-circle"/>
+                </svg>
+                <div class="progress-text" id="progressText">0/17</div>
+            </div>
+            <p style="text-align: center; font-size: 1.2rem; margin: 1rem 0;">
+                <span id="goalsLearned">0</span> out of 17 Goals explored!
+            </p>
+            <div class="badges-earned">
+                <div class="badge" id="badge1" title="First Goal">🎯</div>
+                <div class="badge locked" id="badge2" title="5 Goals">🌟</div>
+                <div class="badge locked" id="badge3" title="10 Goals">🏆</div>
+                <div class="badge locked" id="badge4" title="All Goals!">👑</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="challenge" class="challenge-section">
+        <div class="challenge-card">
+            <div class="challenge-icon">🌱</div>
+            <h3>Today's Challenge</h3>
+            <p id="challengeText">Avoid using single-use plastic bottles today!</p>
+            <button class="read-more-btn" onclick="completeChallenge()">✓ Mark as Done</button>
+            <div class="green-points">💚 <span id="greenPoints">0</span> Green Points</div>
+        </div>
+    </div>
+
+    <div class="global-counter">
+        <h2>🌍 Global Impact</h2>
+        <div class="counter-number" id="globalActions">12,423</div>
+        <p>Actions taken this week by our community!</p>
+    </div>
+
+    <div id="goals" class="section-header">
+        <h2>The 17 Sustainable Development Goals</h2>
+        <p>Click on any goal card to flip and read detailed information!</p>
+    </div>
+
+    <div class="goals-grid" id="goalsGrid"></div>
+
+    <div class="story-slider">
+        <div class="slider-container">
+            <h2 style="text-align: center; color: white; margin-bottom: 2rem;">🌾 Stories of Hope</h2>
+            
+            <div class="story-slide active">
+                <h3 style="color: #DDA63A;">Maria's School Garden 🇵🇭</h3>
+                <p>Ten-year-old Maria used to go to school hungry. Her family struggled during dry season. Then her school started a vegetable garden program.</p>
+                <p style="font-style: italic; color: #DDA63A;">"Now I eat vegetables every day at lunch. I even help grow tomatoes! My grades got better."</p>
+                <button class="tts-btn" onclick="speakText(this.parentElement)">🔊 Listen to Story</button>
+            </div>
+
+            <div class="story-slide">
+                <h3 style="color: #DDA63A;">Farmer Jose's Hope 🇰🇪</h3>
+                <p>Jose farmed the same way for 30 years, but climate change made it harder. Through sustainable training, he learned crop rotation and water conservation.</p>
+                <p style="font-style: italic; color: #DDA63A;">"I now harvest three times what I used to. My children don't go to bed hungry anymore."</p>
+                <button class="tts-btn" onclick="speakText(this.parentElement)">🔊 Listen to Story</button>
+            </div>
+
+            <div class="story-slide">
+                <h3 style="color: #DDA63A;">Community Kitchen 🇮🇳</h3>
+                <p>When pandemic hit, the Sharma family started a community kitchen. They collected surplus food from markets to feed 100 families daily.</p>
+                <p style="font-style: italic; color: #DDA63A;">"We realized while some throw away food, others are starving. We became the bridge."</p>
+                <button class="tts-btn" onclick="speakText(this.parentElement)">🔊 Listen to Story</button>
+            </div>
+
+            <div class="slider-controls">
+                <button class="slider-btn" onclick="previousStory()">← Previous</button>
+                <button class="slider-btn" onclick="nextStory()">Next →</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <div id="faq" class="faq-section">
+        <div class="faq-container">
+            <h2>❓ Frequently Asked Questions</h2>
+            <p class="faq-intro">Everything you need to know about the Sustainable Development Goals</p>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>What are the Sustainable Development Goals?</span>
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>The Sustainable Development Goals (SDGs) are 17 interconnected global goals adopted by all United Nations Member States in 2015. They serve as a universal call to action to end poverty, protect the planet, and ensure that by 2030 all people enjoy peace and prosperity.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>When were the SDGs established?</span>
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>The SDGs were adopted by the United Nations General Assembly on September 25, 2015, as part of the 2030 Agenda for Sustainable Development. They officially came into effect on January 1, 2016.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>How can I contribute to achieving the SDGs?</span>
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Everyone can contribute! Start by reducing waste, conserving water and energy, supporting local businesses, volunteering in your community, educating others about sustainability, and making conscious consumer choices. Complete our daily challenges to track your impact!</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>Why are there 17 goals?</span>
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>The 17 goals were developed through extensive consultation with governments, civil society, and other stakeholders worldwide. Each goal addresses a critical area of sustainable development, from poverty and hunger to climate action and partnerships. They are interconnected, meaning progress in one area affects progress in others.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>What is the deadline for achieving the SDGs?</span>
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>The target year for achieving the SDGs is 2030. This gives countries and organizations 15 years from the goals' adoption to make significant progress toward sustainable development worldwide.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>How is progress measured?</span>
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Progress is measured through 169 targets and over 230 indicators. Countries report their progress annually, and data is compiled by the UN Statistics Division. Various organizations also track progress through reports and data visualization tools.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>Are the SDGs legally binding?</span>
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>No, the SDGs are not legally binding. However, countries are expected to take ownership and establish national frameworks for achieving the goals. Governments decide how to track progress and incorporate the SDGs into their national planning processes.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>How do the SDGs relate to climate change?</span>
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Climate change is directly addressed in Goal 13 (Climate Action), but it affects almost all other SDGs. Climate impacts threaten food security, water availability, health, economic growth, and more. Addressing climate change is essential for achieving sustainable development.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; United Nations - Sustainable Development Goals</p>
+        <p style="margin-top: 0.5rem;">For more information, visit <a href="https://sdgs.un.org">sdgs.un.org</a></p>
+    </footer>
+
+    <div class="scroll-to-top" id="scrollTop" onclick="scrollToTop()">↑</div>
+
+    <div class="audio-controls">
+        <button class="audio-btn" id="audioBtn" onclick="toggleAudio()" title="Toggle ambient sounds">
+            🔇
+        </button>
+    </div>
+
+    <script>
+        // User data storage
+const userData = {
+    goalsLearned: new Set(),
+    greenPoints: 0,
+    challengeCompleted: false
+};
+
+// SDG Data with detailed information
+const sdgData = [
+    {
+        id: 1,
+        title: "No Poverty",
+        description: "End poverty in all its forms everywhere.",
+        progress: 45,
+        details: {
+            overview: "Eradicating poverty in all its forms remains one of the greatest challenges facing humanity. While the number of people living in extreme poverty has dropped significantly, more needs to be done.",
+            targets: [
+                "By 2030, eradicate extreme poverty for all people everywhere",
+                "Reduce at least by half the proportion of people living in poverty",
+                "Implement social protection systems for all",
+                "Ensure equal rights to economic resources and basic services"
+            ],
+            facts: [
+                "More than 700 million people still live in extreme poverty",
+                "About 10% of the world's population lives on less than $1.90 a day",
+                "Poverty affects women and children disproportionately"
+            ]
+        }
+    },
+    {
+        id: 2,
+        title: "Zero Hunger",
+        description: "End hunger, achieve food security and improved nutrition.",
+        progress: 38,
+        details: {
+            overview: "It is time to rethink how we grow, share and consume our food. Agriculture, forestry and fisheries can provide nutritious food for all while generating decent incomes.",
+            targets: [
+                "End hunger and ensure access to safe, nutritious food year-round",
+                "End all forms of malnutrition by 2030",
+                "Double agricultural productivity of small-scale food producers",
+                "Ensure sustainable food production systems"
+            ],
+            facts: [
+                "690 million people are hungry worldwide",
+                "3 billion people cannot afford a healthy diet",
+                "One in nine people globally go to bed hungry each night"
+            ]
+        }
+    },
+    {
+        id: 3,
+        title: "Good Health and Well-Being",
+        description: "Ensure healthy lives and promote well-being for all.",
+        progress: 62,
+        details: {
+            overview: "Ensuring healthy lives and promoting well-being at all ages is essential to sustainable development. Significant progress has been made, but more work is needed.",
+            targets: [
+                "Reduce global maternal mortality ratio",
+                "End preventable deaths of newborns and children under 5",
+                "End epidemics of AIDS, tuberculosis, malaria and other diseases",
+                "Achieve universal health coverage"
+            ],
+            facts: [
+                "Child mortality has dropped by over 50% since 2000",
+                "Maternal mortality fell by 38% since 2000",
+                "HIV/AIDS infections decreased by 40% since peak"
+            ]
+        }
+    },
+    {
+        id: 4,
+        title: "Quality Education",
+        description: "Ensure inclusive and equitable quality education.",
+        progress: 55,
+        details: {
+            overview: "Education is the key to escaping poverty. It enables upward socioeconomic mobility and is essential to ending poverty and achieving sustainable development.",
+            targets: [
+                "Ensure all children complete free primary and secondary education",
+                "Ensure equal access to quality pre-primary education",
+                "Eliminate gender disparities in education",
+                "Substantially increase the number of youth with relevant skills"
+            ],
+            facts: [
+                "617 million youth worldwide lack basic mathematics and literacy skills",
+                "More than half of children who haven't enrolled in school live in sub-Saharan Africa",
+                "4 out of 5 children not in school live in rural areas"
+            ]
+        }
+    },
+    {
+        id: 5,
+        title: "Gender Equality",
+        description: "Achieve gender equality and empower all women and girls.",
+        progress: 48,
+        details: {
+            overview: "Gender equality is a fundamental human right and essential for peaceful, prosperous and sustainable world. Providing women and girls with equal access to education, resources and opportunities is crucial.",
+            targets: [
+                "End all forms of discrimination against women and girls",
+                "Eliminate all forms of violence against women and girls",
+                "Eliminate harmful practices like child marriage",
+                "Ensure women's full participation in leadership and decision-making"
+            ],
+            facts: [
+                "750 million women and girls were married before age 18",
+                "Women earn 23% less than men globally",
+                "Only 25% of all national parliamentarians are women"
+            ]
+        }
+    },
+    {
+        id: 6,
+        title: "Clean Water and Sanitation",
+        description: "Ensure water and sanitation for all.",
+        progress: 52,
+        details: {
+            overview: "Clean water is a basic human need, yet billions of people lack access to safe water. Sustainable water management is essential for health, food security and poverty reduction.",
+            targets: [
+                "Achieve universal access to safe and affordable drinking water",
+                "Achieve access to adequate sanitation and hygiene for all",
+                "Improve water quality by reducing pollution",
+                "Substantially increase water-use efficiency"
+            ],
+            facts: [
+                "2.2 billion people lack safely managed drinking water",
+                "4.2 billion people lack safely managed sanitation services",
+                "80% of wastewater flows back into the ecosystem without treatment"
+            ]
+        }
+    },
+    {
+        id: 7,
+        title: "Affordable and Clean Energy",
+        description: "Ensure access to affordable, reliable, sustainable energy.",
+        progress: 70,
+        details: {
+            overview: "Energy is central to nearly every major challenge and opportunity. Access to affordable, reliable, sustainable energy is essential for prosperity and opportunities for all.",
+            targets: [
+                "Ensure universal access to affordable, reliable energy services",
+                "Increase substantially the share of renewable energy",
+                "Double the global rate of improvement in energy efficiency",
+                "Expand infrastructure for supplying modern and sustainable energy"
+            ],
+            facts: [
+                "789 million people still lack electricity",
+                "Renewable energy now accounts for 26% of global electricity",
+                "Energy is the largest contributor to climate change"
+            ]
+        }
+    },
+    {
+        id: 8,
+        title: "Decent Work and Economic Growth",
+        description: "Promote sustained economic growth and decent work.",
+        progress: 58,
+        details: {
+            overview: "Sustainable economic growth requires societies to create conditions for people to have quality jobs that stimulate the economy while not harming the environment.",
+            targets: [
+                "Sustain per capita economic growth",
+                "Achieve higher levels of economic productivity through innovation",
+                "Promote policies that support job creation and entrepreneurship",
+                "Achieve full and productive employment for all"
+            ],
+            facts: [
+                "188 million people are unemployed worldwide",
+                "470 million jobs are needed globally for new entrants to the labor market",
+                "One in five children are engaged in child labor"
+            ]
+        }
+    },
+    {
+        id: 9,
+        title: "Industry, Innovation and Infrastructure",
+        description: "Build resilient infrastructure and foster innovation.",
+        progress: 65,
+        details: {
+            overview: "Investments in infrastructure and innovation are crucial drivers of economic growth and development. Technological progress is key to finding solutions to environmental challenges.",
+            targets: [
+                "Develop quality, reliable, sustainable and resilient infrastructure",
+                "Promote inclusive and sustainable industrialization",
+                "Increase access to financial services and markets",
+                "Upgrade infrastructure and retrofit industries for sustainability"
+            ],
+            facts: [
+                "1 billion people live more than 2 km from an all-season road",
+                "Manufacturing is the largest employment sector in many countries",
+                "Global investment in R&D reached $2.4 trillion in 2019"
+            ]
+        }
+    },
+    {
+        id: 10,
+        title: "Reduced Inequalities",
+        description: "Reduce inequality within and among countries.",
+        progress: 42,
+        details: {
+            overview: "Income inequality is a global problem that requires global solutions. This involves improving regulation of financial markets, increasing development assistance and encouraging investment in least developed countries.",
+            targets: [
+                "Progressively achieve and sustain income growth of the bottom 40%",
+                "Empower and promote social, economic and political inclusion of all",
+                "Ensure equal opportunity and reduce inequalities of outcome",
+                "Adopt policies that promote equality"
+            ],
+            facts: [
+                "The richest 1% own more than twice as much wealth as 6.9 billion people",
+                "Income inequality has increased in nearly every region",
+                "73% of the world population lives in countries with growing inequality"
+            ]
+        }
+    },
+    {
+        id: 11,
+        title: "Sustainable Cities and Communities",
+        description: "Make cities inclusive, safe, resilient and sustainable.",
+        progress: 53,
+        details: {
+            overview: "More than half the world lives in cities. By 2050, that will increase to two-thirds of humanity. Sustainable urban development is crucial for improving living standards and reducing environmental impact.",
+            targets: [
+                "Ensure access to adequate, safe and affordable housing",
+                "Provide access to safe, affordable, accessible transport systems",
+                "Enhance inclusive and sustainable urbanization",
+                "Reduce the environmental impact of cities"
+            ],
+            facts: [
+                "Over 1 billion people live in slums worldwide",
+                "Cities occupy just 3% of Earth's land but consume 78% of energy",
+                "Cities produce more than 60% of greenhouse gas emissions"
+            ]
+        }
+    },
+    {
+        id: 12,
+        title: "Responsible Consumption and Production",
+        description: "Ensure sustainable consumption and production patterns.",
+        progress: 47,
+        details: {
+            overview: "Sustainable consumption and production is about doing more with less. It involves reducing waste and pollution, promoting sustainable practices across supply chains.",
+            targets: [
+                "Implement the 10-year framework on sustainable consumption",
+                "Achieve sustainable management and efficient use of natural resources",
+                "Halve per capita global food waste",
+                "Substantially reduce waste generation through prevention and recycling"
+            ],
+            facts: [
+                "One-third of all food produced is wasted",
+                "If people worldwide switched to energy efficient lightbulbs, $120 billion would be saved",
+                "Global material consumption has expanded rapidly"
+            ]
+        }
+    },
+    {
+        id: 13,
+        title: "Climate Action",
+        description: "Take urgent action to combat climate change.",
+        progress: 35,
+        details: {
+            overview: "Climate change is now affecting every country on every continent. It is disrupting national economies and affecting lives. Weather patterns are changing, sea levels are rising.",
+            targets: [
+                "Strengthen resilience to climate-related hazards",
+                "Integrate climate change measures into policies and planning",
+                "Improve education and awareness on climate change",
+                "Implement commitments to reduce greenhouse gas emissions"
+            ],
+            facts: [
+                "Global temperatures have risen 1.1°C above pre-industrial levels",
+                "2010-2019 was the warmest decade on record",
+                "Climate disasters cost billions annually and continue to rise"
+            ]
+        }
+    },
+    {
+        id: 14,
+        title: "Life Below Water",
+        description: "Conserve and sustainably use the oceans and marine resources.",
+        progress: 40,
+        details: {
+            overview: "The ocean drives global systems making Earth habitable for humanity. Our rainwater, drinking water, weather, climate, and food depend on healthy oceans.",
+            targets: [
+                "Prevent and reduce marine pollution",
+                "Sustainably manage and protect marine ecosystems",
+                "Minimize ocean acidification impacts",
+                "Regulate harvesting and end overfishing"
+            ],
+            facts: [
+                "Oceans contain nearly 200,000 identified species",
+                "More than 3 billion people depend on oceans for their livelihoods",
+                "Up to 40% of oceans are heavily affected by human activities"
+            ]
+        }
+    },
+    {
+        id: 15,
+        title: "Life on Land",
+        description: "Protect, restore terrestrial ecosystems and halt biodiversity loss.",
+        progress: 43,
+        details: {
+            overview: "Forests cover 30% of Earth's surface and are home to 80% of terrestrial species. Protecting forests is essential for combating climate change and preserving biodiversity.",
+            targets: [
+                "Ensure conservation and restoration of terrestrial ecosystems",
+                "Promote sustainable management of all types of forests",
+                "Combat desertification and restore degraded land",
+                "Take urgent action to end poaching and trafficking of protected species"
+            ],
+            facts: [
+                "13 million hectares of forests are lost each year",
+                "1 million plant and animal species face extinction",
+                "2.6 billion people depend directly on agriculture"
+            ]
+        }
+    },
+    {
+        id: 16,
+        title: "Peace, Justice and Strong Institutions",
+        description: "Promote peaceful and inclusive societies for sustainable development.",
+        progress: 50,
+        details: {
+            overview: "Peace, stability, human rights and effective governance based on the rule of law are important channels for sustainable development. Access to justice for all is essential.",
+            targets: [
+                "Significantly reduce all forms of violence",
+                "End abuse, exploitation, trafficking and all forms of violence against children",
+                "Promote the rule of law and ensure equal access to justice",
+                "Reduce corruption and bribery in all forms"
+            ],
+            facts: [
+                "Among developing countries, 49 face high levels of violence",
+                "Corruption, bribery, theft cost developing countries $1.26 trillion annually",
+                "The birth of around 1 in 4 children under age 5 worldwide is never officially recorded"
+            ]
+        }
+    },
+    {
+        id: 17,
+        title: "Partnerships for the Goals",
+        description: "Strengthen global partnerships for sustainable development.",
+        progress: 68,
+        details: {
+            overview: "A successful sustainable development agenda requires partnerships between governments, private sector and civil society. These inclusive partnerships are needed at global, regional, national and local levels.",
+            targets: [
+                "Strengthen domestic resource mobilization",
+                "Developed countries to implement their official development assistance commitments",
+                "Mobilize additional financial resources for developing countries",
+                "Enhance the global partnership for sustainable development"
+            ],
+            facts: [
+                "Official development assistance stood at $161 billion in 2020",
+                "79% of imports from developing countries enter developed countries duty-free",
+                "Debt burden remains a significant challenge for many developing countries"
+            ]
+        }
+    }
+];
+
+// Generate goal cards with flip functionality
+function generateGoalCards() {
+    const grid = document.getElementById('goalsGrid');
+    grid.innerHTML = '';
+
+    sdgData.forEach(goal => {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'goal-card-wrapper';
+        
+        wrapper.innerHTML = `
+            <div class="goal-card" onclick="flipCard(this, ${goal.id})">
+                <div class="goal-card-front">
+                    <img src="https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-${String(goal.id).padStart(2, '0')}.jpg" alt="Goal ${goal.id}" class="goal-icon">
+                    <div class="goal-content">
+                        <p class="goal-description">${goal.description}</p>
+                        <div class="goal-progress">
+                            <div class="goal-progress-bar" style="width: ${goal.progress}%"></div>
+                        </div>
+                        <p style="text-align: center; font-size: 0.85rem; color: #888;">${goal.progress}% Progress</p>
+                        <button class="read-more-btn">Click to Learn More</button>
+                    </div>
+                </div>
+                <div class="goal-card-back">
+                    <button class="back-flip-btn" onclick="event.stopPropagation(); flipCard(this.closest('.goal-card'), ${goal.id})">✕</button>
+                    <div class="goal-back-title">Goal ${goal.id}: ${goal.title}</div>
+                    <div class="goal-back-content">
+                        <p><strong>Overview:</strong></p>
+                        <p>${goal.details.overview}</p>
+                        
+                        <h4>Key Targets:</h4>
+                        <ul>
+                            ${goal.details.targets.map(target => `<li>${target}</li>`).join('')}
+                        </ul>
+                        
+                        <h4>Important Facts:</h4>
+                        <ul>
+                            ${goal.details.facts.map(fact => `<li>${fact}</li>`).join('')}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        grid.appendChild(wrapper);
+    });
+}
+
+// Flip card functionality
+function flipCard(card, goalId) {
+    card.classList.toggle('flipped');
+    
+    // Mark as learned when flipped for the first time
+    if (card.classList.contains('flipped') && !userData.goalsLearned.has(goalId)) {
+        markGoalLearned(goalId);
+    }
+}
+
+function markGoalLearned(goalNum) {
+    userData.goalsLearned.add(goalNum);
+    updateUI();
+}
+
+function updateUI() {
+    const learned = userData.goalsLearned.size;
+    document.getElementById('goalsLearned').textContent = learned;
+    document.getElementById('progressText').textContent = `${learned}/17`;
+    document.getElementById('greenPoints').textContent = userData.greenPoints;
+    
+    const circle = document.getElementById('progressCircle');
+    const percentage = (learned / 17) * 100;
+    const offset = 377 - (377 * percentage / 100);
+    circle.style.strokeDashoffset = offset;
+    
+    if (learned >= 1) document.getElementById('badge1').classList.remove('locked');
+    if (learned >= 5) document.getElementById('badge2').classList.remove('locked');
+    if (learned >= 10) document.getElementById('badge3').classList.remove('locked');
+    if (learned >= 17) document.getElementById('badge4').classList.remove('locked');
+}
+
+const challenges = [
+    "Avoid using single-use plastic bottles today!",
+    "Turn off lights when leaving a room",
+    "Use public transport or walk today",
+    "Don't waste any food today",
+    "Learn about one SDG in depth",
+    "Share SDG knowledge with a friend",
+    "Reduce water usage by 50%"
+];
+
+function loadDailyChallenge() {
+    const day = new Date().getDate();
+    const challenge = challenges[day % challenges.length];
+    document.getElementById('challengeText').textContent = challenge;
+}
+
+function completeChallenge() {
+    if (!userData.challengeCompleted) {
+        userData.greenPoints += 10;
+        userData.challengeCompleted = true;
+        updateUI();
+        alert('🎉 Challenge completed! +10 Green Points!');
+    } else {
+        alert('✓ You already completed today\'s challenge!');
+    }
+}
+
+let currentStory = 0;
+const stories = document.querySelectorAll('.story-slide');
+
+function showStory(index) {
+    stories.forEach((story, idx) => {
+        story.classList.toggle('active', idx === index);
+    });
+}
+
+function nextStory() {
+    currentStory = (currentStory + 1) % stories.length;
+    showStory(currentStory);
+}
+
+function previousStory() {
+    currentStory = (currentStory - 1 + stories.length) % stories.length;
+    showStory(currentStory);
+}
+
+function speakText(element) {
+    if ('speechSynthesis' in window) {
+        const text = element.innerText;
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.rate = 0.9;
+        speechSynthesis.speak(utterance);
+    } else {
+        alert('Text-to-speech not supported in your browser');
+    }
+}
+
+function searchContent() {
+    const query = document.getElementById('searchInput').value.toLowerCase();
+    const wrappers = document.querySelectorAll('.goal-card-wrapper');
+    
+    wrappers.forEach(wrapper => {
+        const text = wrapper.textContent.toLowerCase();
+        wrapper.style.display = text.includes(query) ? 'block' : 'none';
+    });
+}
+
+function toggleDarkMode() {
+    document.body.classList.toggle('dark-mode');
+    const btn = document.getElementById('darkModeBtn');
+    btn.textContent = document.body.classList.contains('dark-mode') ? '☀️ Light Mode' : '🌙 Dark Mode';
+    btn.classList.toggle('active');
+}
+
+function toggleDyslexiaFont() {
+    document.body.classList.toggle('dyslexia-font');
+}
+
+function increaseFontSize() {
+    document.body.classList.remove('font-small');
+    document.body.classList.add('font-large');
+}
+
+function decreaseFontSize() {
+    document.body.classList.remove('font-large');
+    document.body.classList.add('font-small');
+}
+
+function changeTheme(theme) {
+    document.body.classList.remove('theme-nature', 'theme-ocean', 'theme-sky');
+    if (theme !== 'default') {
+        document.body.classList.add(`theme-${theme}`);
+    }
+}
+
+let audioPlaying = false;
+function toggleAudio() {
+    audioPlaying = !audioPlaying;
+    const btn = document.getElementById('audioBtn');
+    btn.textContent = audioPlaying ? '🔊' : '🔇';
+    if (audioPlaying) {
+        alert('🎵 Ambient sounds would play here (requires audio files)');
+    }
+}
+
+function animateCounters() {
+    const counters = document.querySelectorAll('.stat-number');
+    counters.forEach(counter => {
+        const target = parseInt(counter.getAttribute('data-target'));
+        const duration = 2000;
+        const step = target / (duration / 16);
+        let current = 0;
+        
+        const timer = setInterval(() => {
+            current += step;
+            if (current >= target) {
+                counter.textContent = target;
+                clearInterval(timer);
+            } else {
+                counter.textContent = Math.floor(current);
+            }
+        }, 16);
+    });
+}
+
+function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// FAQ toggle functionality
+function toggleFAQ(element) {
+    const faqItem = element.parentElement;
+    const wasActive = faqItem.classList.contains('active');
+    
+    // Close all FAQ items
+    document.querySelectorAll('.faq-item').forEach(item => {
+        item.classList.remove('active');
+    });
+    
+    // Open clicked item if it wasn't already open
+    if (!wasActive) {
+        faqItem.classList.add('active');
+    }
+}
+
+window.addEventListener('scroll', function() {
+    const scrollTop = document.getElementById('scrollTop');
+    if (window.pageYOffset > 300) {
+        scrollTop.classList.add('visible');
+    } else {
+        scrollTop.classList.remove('visible');
+    }
+});
+
+setInterval(() => {
+    const counter = document.getElementById('globalActions');
+    const current = parseInt(counter.textContent.replace(/,/g, ''));
+    counter.textContent = (current + Math.floor(Math.random() * 5)).toLocaleString();
+}, 5000);
+
+window.onload = function() {
+    generateGoalCards();
+    loadDailyChallenge();
+    animateCounters();
+};
+    </script>
+</body>
+</html>
